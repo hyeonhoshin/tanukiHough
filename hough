@@ -34,6 +34,7 @@ for i in circles[0,:]:
     cv2.circle(img,(i[0],i[1]),2,(0,0,255),3)
 
 res = np.vstack((img_original,img))
+cv2.imwrite('output.png', img)
 cv2.imshow('Original img vs Transformed img',res)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
