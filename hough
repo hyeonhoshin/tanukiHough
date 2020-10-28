@@ -2,18 +2,25 @@ import cv2
 import numpy as np
 import argparse
 
+# Next to do 
+# Parameters tuning - now there is some errors on image.
+
+# Terminal data parsing
 parser = argparse.ArgumentParser(description='Hough transform an image')
 parser.add_argument('-i',default='stuff.jpg', type=str ,help='The path of file to transform')
 args = parser.parse_args()
 
+# Image read
 img = cv2.imread(args.i)
 img_original = img.copy()
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 edges = cv2.Canny(gray,50,150,apertureSize=3)
 
+# Extract Lines and Circles
 lines = cv2.HoughLines(edges,1,np.pi/180,100)
 circles = cv2.HoughCircles(gray, cv2.HOUGH_GRADIENT, 1, 50,param1=50,param2=25,minRadius=0, maxRadius=0)
 
+# Draw Lines and Circles
 for i in range(len(lines)):
     for rho, theta in lines[i]:
         a = np.cos(theta)
@@ -33,7 +40,6 @@ for i in circles[0,:]:
     cv2.circle(img,(i[0],i[1]),2,(0,0,255),3)
 
 res = np.vstack((img_original,img))
-cv2.imshow('img', img)
-cv2.imshow('img',res)
+cv2.imshow('Original img vs Transformed img',res)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
