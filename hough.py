@@ -2,9 +2,6 @@ import cv2
 import numpy as np
 import argparse
 
-# Next to do 
-# Parameters tuning - now there is some errors on image.
-
 # Terminal data parsing
 parser = argparse.ArgumentParser(description='Hough transform an image')
 parser.add_argument('-i',default='stuff.jpg', type=str ,help='The path of file to transform')
